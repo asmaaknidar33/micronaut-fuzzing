@@ -29,7 +29,9 @@ import java.lang.foreign.ValueLayout;
  */
 @SuppressWarnings({"Since15", "preview"})
 public final class CpuTimer {
-    private static final int CLOCK_THREAD_CPUTIME_ID = 3;
+    // Linux: 3, macOS: 16
+    private static final int CLOCK_THREAD_CPUTIME_ID =
+        System.getProperty("os.name", "").toLowerCase().contains("mac") ? 16 : 3;
     private static final long NANO_PER_SEC = 1_000_000_000L;
 
     private CpuTimer() {
